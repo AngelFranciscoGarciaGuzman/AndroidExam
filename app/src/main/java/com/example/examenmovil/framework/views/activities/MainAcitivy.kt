@@ -1,3 +1,5 @@
+package com.example.examenmovil.framework.views.activities
+
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity

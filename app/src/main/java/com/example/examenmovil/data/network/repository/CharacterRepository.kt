@@ -5,7 +5,9 @@ import com.example.examenmovil.data.network.RetrofitInstance
 
 class CharacterRepository {
 
-    suspend fun getCharacters(): List<Character> {
-        return RetrofitInstance.api.getCharacters(1) // Puedes ajustar la paginación según sea necesario
+    suspend fun getCharacters(page: Int): List<Character> {
+        // Hacer la llamada a la API con la página correspondiente
+        val response = RetrofitInstance.api.getCharacters(page)
+        return response.items // Asegúrate de que `items` sea el campo correcto en la respuesta JSON
     }
 }

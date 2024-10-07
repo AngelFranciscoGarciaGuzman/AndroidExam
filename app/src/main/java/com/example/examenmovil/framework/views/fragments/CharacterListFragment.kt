@@ -10,7 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.examenmovil.R
-import com.example.examenmovil.adapter.CharacterAdapter
+import com.example.examenmovil.framework.adapters.CharacterAdapter
 import com.example.examenmovil.framework.viewmodel.CharacterViewModel
 
 class CharacterListFragment : Fragment() {
@@ -27,7 +27,7 @@ class CharacterListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
-        // Inicializamos el adaptador vacío para luego actualizarlo con los datos del ViewModel
+        // Inicializamos el adaptador vacío
         characterAdapter = CharacterAdapter(emptyList())
         recyclerView.adapter = characterAdapter
 
@@ -38,11 +38,10 @@ class CharacterListFragment : Fragment() {
 
     private fun observeViewModel() {
         // Observa los datos de los personajes del ViewModel
-        characterViewModel.characters.observe(viewLifecycleOwner, Observer { characters ->
+        characterViewModel.characters.observe(viewLifecycleOwner) { characters ->
             // Actualiza el adaptador cuando los datos cambian
-            characterAdapter = CharacterAdapter(characters)
-            view?.findViewById<RecyclerView>(R.id.recycler_view)?.adapter = characterAdapter
-        })
+            characterAdapter.updateCharacters(characters)
+        }
 
         // Llamada inicial para obtener los personajes del API
         characterViewModel.fetchCharacters()

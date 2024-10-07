@@ -1,3 +1,4 @@
 <resources>
-    <string name="app_name">ExamenMovil</string>
+    <string name="app_name">Examen Movil</string>
+    <string name="character_image">Imagen del personaje</string> <!-- Agregado aquí -->
 </resources>

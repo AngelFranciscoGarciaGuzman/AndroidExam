@@ -1,4 +1,4 @@
-package com.example.examenmovil
+package com.example.examenmovil.framework.views.activities
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity

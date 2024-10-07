@@ -1,7 +1,7 @@
 package com.example.examenmovil.data.network.repository
 
 import com.example.examenmovil.data.network.model.Character
-import com.example.examenmovil.network.RetrofitInstance
+import com.example.examenmovil.data.network.RetrofitInstance
 
 class CharacterRepository {
 

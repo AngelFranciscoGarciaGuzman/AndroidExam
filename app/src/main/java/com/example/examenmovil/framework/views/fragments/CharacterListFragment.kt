@@ -5,11 +5,18 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.examenmovil.R
+import com.example.examenmovil.adapter.CharacterAdapter
+import com.example.examenmovil.framework.viewmodel.CharacterViewModel
 
 class CharacterListFragment : Fragment() {
+
+    private val characterViewModel: CharacterViewModel by viewModels()
+    private lateinit var characterAdapter: CharacterAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -20,10 +27,24 @@ class CharacterListFragment : Fragment() {
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view)
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
 
+        // Inicializamos el adaptador vacío para luego actualizarlo con los datos del ViewModel
+        characterAdapter = CharacterAdapter(emptyList())
+        recyclerView.adapter = characterAdapter
 
-        // Adaptador para la lista de personajes será agregado después
-        // recyclerView.adapter = characterAdapter
+        observeViewModel()
 
         return view
+    }
+
+    private fun observeViewModel() {
+        // Observa los datos de los personajes del ViewModel
+        characterViewModel.characters.observe(viewLifecycleOwner, Observer { characters ->
+            // Actualiza el adaptador cuando los datos cambian
+            characterAdapter = CharacterAdapter(characters)
+            view?.findViewById<RecyclerView>(R.id.recycler_view)?.adapter = characterAdapter
+        })
+
+        // Llamada inicial para obtener los personajes del API
+        characterViewModel.fetchCharacters()
     }
 }
